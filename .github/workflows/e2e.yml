@@ -13,7 +13,7 @@ jobs:
       DB_PORT: 5432
       DB_USER: postgres
       DB_PASSWORD: postgres
-      DB_NAME: transfeera
+      DB_NAME: transfeera_test
     services:
       postgres:
         image: postgres:15-alpine
@@ -37,6 +37,8 @@ jobs:
           cache: "npm"
       - name: Install dependencies
         run: npm ci
+      - name: Create Database
+        run: psql -d postgres://postgres:postgres@localhost:5432 -c 'CREATE DATABASE transfeera_test;'
       - name: Apply migrations
         run: npm run migrate
       - name: Run Tests
