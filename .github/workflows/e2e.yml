@@ -37,8 +37,6 @@ jobs:
           cache: "npm"
       - name: Install dependencies
         run: npm ci
-      - name: Create Database
-        run: psql -d postgres://postgres:postgres@localhost:5432 -c 'CREATE DATABASE transfeera_test;'
       - name: Apply migrations
         run: npm run migrate
       - name: Run Tests
