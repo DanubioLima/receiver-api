@@ -16,6 +16,8 @@ export const pixKeyTypeEnum = pgEnum("pix_key_type", [
   "CHAVE_ALEATORIA",
 ]);
 
+export const statusEnum = pgEnum("receiver_status", ["VALID", "DRAFT"]);
+
 export const receivers = pgTable("receivers", {
   id: uuid("id")
     .primaryKey()
@@ -24,6 +26,7 @@ export const receivers = pgTable("receivers", {
   name: text("name").notNull(),
   email: varchar("email", { length: 250 }).notNull(),
   document: varchar("document", { length: 14 }).notNull(),
+  status: statusEnum("status").notNull().default("DRAFT"),
   pix_key_type: pixKeyTypeEnum("pix_key_type").notNull(),
   pix_key: varchar("pix_key", { length: 140 }).notNull(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
