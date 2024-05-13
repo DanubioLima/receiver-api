@@ -1,4 +1,4 @@
-import ReceiverController from "./controllers/receiver-controller";
+import ReceiverController from "./receivers/receiver-controller";
 import express from "express";
 
 const receiverController = new ReceiverController();
