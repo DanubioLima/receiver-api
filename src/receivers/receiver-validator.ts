@@ -9,7 +9,7 @@ class ReceiverValidator {
         document: z.string().max(14),
         pix_key_type: z.enum(
           ["CPF", "CNPJ", "EMAIL", "TELEFONE", "CHAVE_ALEATORIA"],
-          { message: "pix_key_type is required" }
+          { message: "pix_key_type is required" },
         ),
         pix_key: z.string({ message: "pix_key is required" }).max(140).min(3),
       })
@@ -18,25 +18,25 @@ class ReceiverValidator {
         (data) => {
           if (data.pix_key_type === "CPF") {
             return /^[0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2}$/.test(
-              data.pix_key
+              data.pix_key,
             );
           }
 
           return true;
         },
-        { message: "pix_key_type has an invalid CPF" }
+        { message: "pix_key_type has an invalid CPF" },
       )
       .refine(
         (data) => {
           if (data.pix_key_type === "CNPJ") {
             return /^[0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2}$/.test(
-              data.pix_key
+              data.pix_key,
             );
           }
 
           return true;
         },
-        { message: "pix_key_type has an invalid CNPJ" }
+        { message: "pix_key_type has an invalid CNPJ" },
       )
       .refine(
         (data) => {
@@ -46,7 +46,7 @@ class ReceiverValidator {
 
           return true;
         },
-        { message: "pix_key_type has an invalid email" }
+        { message: "pix_key_type has an invalid email" },
       )
       .refine(
         (data) => {
@@ -56,19 +56,19 @@ class ReceiverValidator {
 
           return true;
         },
-        { message: "pix_key_type has an invalid phone" }
+        { message: "pix_key_type has an invalid phone" },
       )
       .refine(
         (data) => {
           if (data.pix_key_type === "CHAVE_ALEATORIA") {
             return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
-              data.pix_key
+              data.pix_key,
             );
           }
 
           return true;
         },
-        { message: "pix_key_type has an invalid random key" }
+        { message: "pix_key_type has an invalid random key" },
       );
 
     return schema.safeParse(payload);

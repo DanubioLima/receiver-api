@@ -79,21 +79,12 @@
     "public.pix_key_type": {
       "name": "pix_key_type",
       "schema": "public",
-      "values": [
-        "CPF",
-        "CNPJ",
-        "EMAIL",
-        "TELEFONE",
-        "CHAVE_ALEATORIA"
-      ]
+      "values": ["CPF", "CNPJ", "EMAIL", "TELEFONE", "CHAVE_ALEATORIA"]
     },
     "public.receiver_status": {
       "name": "receiver_status",
       "schema": "public",
-      "values": [
-        "VALID",
-        "DRAFT"
-      ]
+      "values": ["VALID", "DRAFT"]
     }
   },
   "schemas": {},
