@@ -1,9 +1,10 @@
 import { test } from "@japa/runner";
 import request from "supertest";
+import { createReceivers, fetchReceivers } from "../test-helpers";
 
 const appUrl = `http://localhost:${process.env.PORT}`;
 
-test.group("ReceiverController", () => {
+test.group("ReceiverController - create", () => {
   test("should create a new receiver", async ({ assert }) => {
     // ARRANGE
     const payload = {
@@ -78,5 +79,41 @@ test.group("ReceiverController", () => {
     // ASSERT
     assert.equal(400, response.status);
     assert.equal("pix_key is required", response.body.errors[0]);
+  });
+});
+
+test.group("ReceiverController - delete", () => {
+  test("should soft delete receivers", async ({ assert }) => {
+    // ARRANGE
+    const [{ id: id_receiver_1 }, { id: id_receiver_2 }] =
+      await createReceivers([
+        {
+          name: "John Doe",
+          email: "johndoe@gmail.com",
+          document: "06795621928",
+          pix_key_type: "CPF",
+          pix_key: "06795621928",
+        },
+        {
+          name: "Guilherme",
+          email: "guilherme@gmail.com",
+          document: "06795621928",
+          pix_key_type: "EMAIL",
+          pix_key: "guilherme@gmail.com",
+        },
+      ]);
+
+    const receiverIds = [id_receiver_1, id_receiver_2];
+    const payload = { receivers: receiverIds };
+
+    // ACT
+    const response = await request(appUrl).delete("/receivers").send(payload);
+
+    const [receiver_1, receiver_2] = await fetchReceivers(receiverIds);
+
+    // ASSERT
+    assert.equal(200, response.status);
+    assert.isNotNull(receiver_1.deletedAt);
+    assert.isNotNull(receiver_2.deletedAt);
   });
 });

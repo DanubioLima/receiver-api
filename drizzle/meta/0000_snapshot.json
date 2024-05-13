@@ -1,5 +1,5 @@
 {
-  "id": "904fda2c-cd1b-4fac-a239-23c481bb1e66",
+  "id": "69de2185-9ffb-476b-82b7-a71e1409a191",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "6",
   "dialect": "postgresql",
@@ -53,6 +53,13 @@
           "type": "varchar(140)",
           "primaryKey": false,
           "notNull": true
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": null
         },
         "created_at": {
           "name": "created_at",

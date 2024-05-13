@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS "receivers" (
 	"status" "receiver_status" DEFAULT 'DRAFT' NOT NULL,
 	"pix_key_type" "pix_key_type" NOT NULL,
 	"pix_key" varchar(140) NOT NULL,
+	"deleted_at" timestamp DEFAULT null,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL
 );

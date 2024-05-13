@@ -29,6 +29,7 @@ export const receivers = pgTable("receivers", {
   status: statusEnum("status").notNull().default("DRAFT"),
   pix_key_type: pixKeyTypeEnum("pix_key_type").notNull(),
   pix_key: varchar("pix_key", { length: 140 }).notNull(),
+  deletedAt: timestamp("deleted_at").default(null),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
