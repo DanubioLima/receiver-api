@@ -1,10 +1,12 @@
 import { test } from "@japa/runner";
 import request from "supertest";
-import { createReceivers, fetchReceivers } from "../test-helpers";
+import { createReceivers, fetchReceivers, testSetup } from "../test-helpers";
 
 const appUrl = `http://localhost:${process.env.PORT}`;
 
-test.group("ReceiverController - create", () => {
+test.group("ReceiverController - create", (group) => {
+  group.each.setup(testSetup);
+
   test("should create a new receiver", async ({ assert }) => {
     // ARRANGE
     const payload = {
@@ -82,7 +84,9 @@ test.group("ReceiverController - create", () => {
   });
 });
 
-test.group("ReceiverController - delete", () => {
+test.group("ReceiverController - delete", (group) => {
+  group.each.setup(testSetup);
+
   test("should soft delete receivers", async ({ assert }) => {
     // ARRANGE
     const [{ id: id_receiver_1 }, { id: id_receiver_2 }] =
@@ -103,13 +107,12 @@ test.group("ReceiverController - delete", () => {
         },
       ]);
 
-    const receiverIds = [id_receiver_1, id_receiver_2];
-    const payload = { receivers: receiverIds };
+    const payload = { receivers: [id_receiver_1, id_receiver_2] };
 
     // ACT
     const response = await request(appUrl).delete("/receivers").send(payload);
 
-    const [receiver_1, receiver_2] = await fetchReceivers(receiverIds);
+    const [receiver_1, receiver_2] = await fetchReceivers();
 
     // ASSERT
     assert.equal(200, response.status);

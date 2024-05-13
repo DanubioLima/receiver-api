@@ -1,5 +1,4 @@
 import { test } from "@japa/runner";
-import request from "supertest";
 import receiverValidator from "../../src/receivers/receiver-validator";
 
 const appUrl = `http://localhost:${process.env.PORT}`;
