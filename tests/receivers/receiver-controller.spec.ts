@@ -319,3 +319,66 @@ test.group("ReceiverController - delete", (group) => {
     assert.isNotNull(receiver_2.deletedAt);
   });
 });
+
+test.group("ReceiverController - update", (group) => {
+  group.each.setup(testSetup);
+
+  test("should update fields from receiver with status DRAFT", async ({
+    assert,
+  }) => {
+    // ARRANGE
+    const [receiver] = await createReceivers([
+      {
+        name: "John Doe",
+        email: "johndoe@gmail.com",
+        document: "06795621928",
+        pix_key_type: "CPF",
+        pix_key: "06795621928",
+      },
+    ]);
+
+    const payload = { name: "João", email: "joao@gmail.com" };
+
+    // ACT
+    const response = await request(appUrl)
+      .put(`/receivers/${receiver.id}`)
+      .send(payload);
+
+    const [receiver_1] = await fetchReceivers();
+
+    // ASSERT
+    assert.equal(response.status, 200);
+    assert.equal(receiver_1.name, "João");
+    assert.equal(receiver_1.email, "joao@gmail.com");
+  });
+
+  test("should update only the email for receivers with status VALID", async ({
+    assert,
+  }) => {
+    // ARRANGE
+    const [receiver] = await createReceivers([
+      {
+        name: "John Doe",
+        email: "johndoe@gmail.com",
+        document: "06795621928",
+        status: "VALID",
+        pix_key_type: "CPF",
+        pix_key: "06795621928",
+      },
+    ]);
+
+    const payload = { name: "João", email: "joao@gmail.com" };
+
+    // ACT
+    const response = await request(appUrl)
+      .put(`/receivers/${receiver.id}`)
+      .send(payload);
+
+    const [receiver_1] = await fetchReceivers();
+
+    // ASSERT
+    assert.equal(response.status, 200);
+    assert.equal(receiver_1.name, "John Doe");
+    assert.equal(receiver_1.email, "joao@gmail.com");
+  });
+});

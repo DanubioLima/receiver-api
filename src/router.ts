@@ -8,5 +8,6 @@ const routes = express.Router();
 routes.post("/receivers", receiverController.create);
 routes.delete("/receivers", receiverController.delete);
 routes.get("/receivers", receiverController.list);
+routes.put("/receivers/:id", receiverController.update);
 
 export default routes;

@@ -55,6 +55,33 @@ class ReceiverService {
 
     return result;
   }
+
+  async findById(id: string) {
+    const receiver = (
+      await db.select().from(receivers).where(eq(receivers.id, id))
+    ).at(0);
+
+    return receiver;
+  }
+
+  async update(receiver: Receiver, payload: Partial<Receiver>) {
+    if (receiver.status === "DRAFT") {
+      await db
+        .update(receivers)
+        .set(payload)
+        .where(eq(receivers.id, receiver.id));
+
+      return;
+    }
+
+    // receivers with status VALID can update only the email
+    if (payload.email) {
+      await db
+        .update(receivers)
+        .set({ email: payload.email })
+        .where(eq(receivers.id, receiver.id));
+    }
+  }
 }
 
 export default new ReceiverService();

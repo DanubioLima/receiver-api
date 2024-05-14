@@ -58,6 +58,17 @@ class ReceiverController {
 
     return response.status(200).json(result);
   }
+
+  async update(request: Request, response: Response) {
+    const { id } = request.params;
+    const payload = request.body;
+
+    const receiver = await receiverService.findById(id);
+
+    await receiverService.update(receiver, payload);
+
+    return response.status(200).json({ message: "Receiver updated" });
+  }
 }
 
 export default ReceiverController;
