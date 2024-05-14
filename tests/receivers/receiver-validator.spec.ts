@@ -1,8 +1,6 @@
 import { test } from "@japa/runner";
 import receiverValidator from "../../src/receivers/receiver-validator";
 
-const appUrl = `http://localhost:${process.env.PORT}`;
-
 test.group("ReceiverValidator", () => {
   test("should return success as false when missing `pix_key_type` field", async ({
     assert,

@@ -1,5 +1,5 @@
 import db from "../database/client";
-import { Receiver, receivers } from "./receiver-schema";
+import { NewReceiver, Receiver, receivers } from "./receiver-schema";
 import { asc, ilike, count, and, eq, inArray } from "drizzle-orm";
 
 type ListReceiverFilter = {
@@ -90,7 +90,7 @@ class ReceiverService {
       .where(inArray(receivers.id, receiversToDelete));
   }
 
-  async create(payload: Receiver) {
+  async create(payload: NewReceiver) {
     const receiver = (
       await db.insert(receivers).values(payload).returning()
     ).at(0);

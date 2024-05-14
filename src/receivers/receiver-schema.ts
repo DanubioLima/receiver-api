@@ -35,3 +35,4 @@ export const receivers = pgTable("receivers", {
 });
 
 export type Receiver = typeof receivers.$inferSelect;
+export type NewReceiver = typeof receivers.$inferInsert;
