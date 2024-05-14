@@ -33,3 +33,5 @@ export const receivers = pgTable("receivers", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
+
+export type Receiver = typeof receivers.$inferSelect;

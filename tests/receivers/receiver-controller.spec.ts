@@ -84,6 +84,205 @@ test.group("ReceiverController - create", (group) => {
   });
 });
 
+test.group("ReceiverController - list", (group) => {
+  group.each.setup(testSetup);
+
+  test("should search a receiver by name", async ({ assert }) => {
+    // ARRANGE
+    const [_, receiver_2] = await createReceivers([
+      {
+        name: "John Doe",
+        email: "johndoe@gmail.com",
+        document: "06795621928",
+        pix_key_type: "CPF",
+        pix_key: "06795621928",
+      },
+      {
+        name: "Guilherme",
+        email: "guilherme@gmail.com",
+        document: "06795621928",
+        pix_key_type: "EMAIL",
+        pix_key: "guilherme@gmail.com",
+      },
+    ]);
+
+    // ACT
+    const name = receiver_2.name.slice(0, 3);
+    const page = 1;
+    const response = await request(appUrl)
+      .get("/receivers")
+      .query({ name, page });
+
+    // ASSERT
+    assert.equal(response.status, 200);
+    assert.deepInclude(response.body, {
+      totalReceivers: 2,
+      page: 1,
+      pageSize: 10,
+    });
+    assert.lengthOf(response.body.receivers, 1);
+    assert.includeDeepMembers(response.body.receivers, [
+      {
+        id: receiver_2.id,
+        name: "Guilherme",
+        email: "guilherme@gmail.com",
+        document: "06795621928",
+        status: "DRAFT",
+        pix_key_type: "EMAIL",
+        pix_key: "guilherme@gmail.com",
+        deletedAt: null,
+        createdAt: receiver_2.createdAt.toISOString(),
+        updatedAt: receiver_2.updatedAt.toISOString(),
+      },
+    ]);
+  });
+
+  test("should search a receiver by status", async ({ assert }) => {
+    // ARRANGE
+    const [_, receiver_2] = await createReceivers([
+      {
+        name: "John Doe",
+        email: "johndoe@gmail.com",
+        document: "06795621928",
+        pix_key_type: "CPF",
+        pix_key: "06795621928",
+      },
+      {
+        name: "Guilherme",
+        status: "VALID",
+        email: "guilherme@gmail.com",
+        document: "06795621928",
+        pix_key_type: "EMAIL",
+        pix_key: "guilherme@gmail.com",
+      },
+    ]);
+
+    // ACT
+    const response = await request(appUrl)
+      .get("/receivers")
+      .query({ status: "VALID" });
+
+    // ASSERT
+    assert.equal(response.status, 200);
+    assert.deepInclude(response.body, {
+      totalReceivers: 2,
+      page: 1,
+      pageSize: 10,
+    });
+    assert.lengthOf(response.body.receivers, 1);
+    assert.includeDeepMembers(response.body.receivers, [
+      {
+        id: receiver_2.id,
+        name: "Guilherme",
+        email: "guilherme@gmail.com",
+        document: "06795621928",
+        status: "VALID",
+        pix_key_type: "EMAIL",
+        pix_key: "guilherme@gmail.com",
+        deletedAt: null,
+        createdAt: receiver_2.createdAt.toISOString(),
+        updatedAt: receiver_2.updatedAt.toISOString(),
+      },
+    ]);
+  });
+
+  test("should search a receiver by pix_key_type", async ({ assert }) => {
+    // ARRANGE
+    const [receiver_1] = await createReceivers([
+      {
+        name: "John Doe",
+        email: "johndoe@gmail.com",
+        document: "06795621928",
+        pix_key_type: "CPF",
+        pix_key: "06795621928",
+      },
+      {
+        name: "Guilherme",
+        email: "guilherme@gmail.com",
+        document: "06795621928",
+        pix_key_type: "EMAIL",
+        pix_key: "guilherme@gmail.com",
+      },
+    ]);
+
+    // ACT
+    const response = await request(appUrl)
+      .get("/receivers")
+      .query({ pix_type: "CPF" });
+
+    // ASSERT
+    assert.equal(response.status, 200);
+    assert.deepInclude(response.body, {
+      totalReceivers: 2,
+      page: 1,
+      pageSize: 10,
+    });
+    assert.lengthOf(response.body.receivers, 1);
+    assert.includeDeepMembers(response.body.receivers, [
+      {
+        id: receiver_1.id,
+        name: "John Doe",
+        email: "johndoe@gmail.com",
+        document: "06795621928",
+        status: "DRAFT",
+        pix_key_type: "CPF",
+        pix_key: "06795621928",
+        deletedAt: null,
+        createdAt: receiver_1.createdAt.toISOString(),
+        updatedAt: receiver_1.updatedAt.toISOString(),
+      },
+    ]);
+  });
+
+  test("should search a receiver by pix_key", async ({ assert }) => {
+    // ARRANGE
+    const [receiver_1] = await createReceivers([
+      {
+        name: "John Doe",
+        email: "johndoe@gmail.com",
+        document: "06795621928",
+        pix_key_type: "CPF",
+        pix_key: "06795621928",
+      },
+      {
+        name: "Guilherme",
+        email: "guilherme@gmail.com",
+        document: "06795621928",
+        pix_key_type: "EMAIL",
+        pix_key: "guilherme@gmail.com",
+      },
+    ]);
+
+    // ACT
+    const response = await request(appUrl)
+      .get("/receivers")
+      .query({ pix_key: "06795621928" });
+
+    // ASSERT
+    assert.equal(response.status, 200);
+    assert.deepInclude(response.body, {
+      totalReceivers: 2,
+      page: 1,
+      pageSize: 10,
+    });
+    assert.lengthOf(response.body.receivers, 1);
+    assert.includeDeepMembers(response.body.receivers, [
+      {
+        id: receiver_1.id,
+        name: "John Doe",
+        email: "johndoe@gmail.com",
+        document: "06795621928",
+        status: "DRAFT",
+        pix_key_type: "CPF",
+        pix_key: "06795621928",
+        deletedAt: null,
+        createdAt: receiver_1.createdAt.toISOString(),
+        updatedAt: receiver_1.updatedAt.toISOString(),
+      },
+    ]);
+  });
+});
+
 test.group("ReceiverController - delete", (group) => {
   group.each.setup(testSetup);
 

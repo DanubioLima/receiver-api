@@ -1,8 +1,10 @@
 import { Request, Response } from "express";
 import db from "../database/client";
-import { receivers } from "./receiver-schema";
+import { pixKeyTypeEnum, receivers, statusEnum } from "./receiver-schema";
 import receiverValidator from "./receiver-validator";
 import { inArray } from "drizzle-orm";
+import receiverService from "./receiver-service";
+import z from "zod";
 
 class ReceiverController {
   async create(request: Request, response: Response) {
@@ -32,6 +34,29 @@ class ReceiverController {
       .where(inArray(receivers.id, receiversToDelete));
 
     return response.status(200).json({ message: "Receivers deleted" });
+  }
+
+  async list(request: Request, response: Response) {
+    const parseSchema = z
+      .object({
+        name: z.string().optional(),
+        page: z
+          .string()
+          .default("1")
+          .transform((val) => Number(val)),
+        status: z.enum(statusEnum.enumValues).optional(),
+        pix_type: z.enum(pixKeyTypeEnum.enumValues).optional(),
+        pix_key: z.string().optional(),
+      })
+      .safeParse(request.query);
+
+    if (!parseSchema.success) {
+      return response.status(400).json({ message: "invalid params" });
+    }
+
+    const result = await receiverService.list(parseSchema.data);
+
+    return response.status(200).json(result);
   }
 }
 
