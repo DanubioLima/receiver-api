@@ -1,5 +1,5 @@
 {
-  "id": "69de2185-9ffb-476b-82b7-a71e1409a191",
+  "id": "85efd301-ecbc-41b1-9c95-b5c15029054e",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "6",
   "dialect": "postgresql",
@@ -25,7 +25,7 @@
           "name": "email",
           "type": "varchar(250)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "document": {
           "name": "document",
@@ -79,7 +79,23 @@
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {
+        "receivers_email_unique": {
+          "name": "receivers_email_unique",
+          "nullsNotDistinct": false,
+          "columns": ["email"]
+        },
+        "receivers_document_unique": {
+          "name": "receivers_document_unique",
+          "nullsNotDistinct": false,
+          "columns": ["document"]
+        },
+        "receivers_pix_key_unique": {
+          "name": "receivers_pix_key_unique",
+          "nullsNotDistinct": false,
+          "columns": ["pix_key"]
+        }
+      }
     }
   },
   "enums": {
