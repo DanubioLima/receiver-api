@@ -4,7 +4,7 @@ API REST simples com um CRUD onde é possível criar, listar, deletar e atualiza
 
 ## Rodar o projeto
 
-Certifique-se que você tenha o Nodejs instalado, de preferência na versão `20.13.1` que foi a utilizada para criar o projeto. O Docker também é necessário para subir o Postgres localmente. 
+Certifique-se que você tenha o Nodejs instalado, de preferência na versão `20.13.1` que foi a utilizada para criar o projeto. O Docker também é necessário para subir o Postgres localmente.
 Se você usa [asdf](https://asdf-vm.com/) o arquivo `.tool-versions` na raíz do projeto já tem a versão correta a ser instalada.
 
 Depois de clonar esse repo para sua máquina, siga esses passos:
