@@ -1,6 +1,6 @@
 import db from "../database/client";
 import { Receiver, receivers } from "./receiver-schema";
-import { asc, ilike, count, and, eq } from "drizzle-orm";
+import { asc, ilike, count, and, eq, inArray } from "drizzle-orm";
 
 type ListReceiverFilter = {
   name?: string;
@@ -81,6 +81,21 @@ class ReceiverService {
         .set({ email: payload.email })
         .where(eq(receivers.id, receiver.id));
     }
+  }
+
+  async delete(receiversToDelete: string[]) {
+    await db
+      .update(receivers)
+      .set({ deletedAt: new Date() })
+      .where(inArray(receivers.id, receiversToDelete));
+  }
+
+  async create(payload: Receiver) {
+    const receiver = (
+      await db.insert(receivers).values(payload).returning()
+    ).at(0);
+
+    return receiver;
   }
 }
 

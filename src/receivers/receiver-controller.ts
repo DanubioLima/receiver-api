@@ -1,8 +1,6 @@
 import { Request, Response } from "express";
-import db from "../database/client";
-import { pixKeyTypeEnum, receivers, statusEnum } from "./receiver-schema";
+import { pixKeyTypeEnum, statusEnum } from "./receiver-schema";
 import receiverValidator from "./receiver-validator";
-import { inArray } from "drizzle-orm";
 import receiverService from "./receiver-service";
 import z from "zod";
 
@@ -18,9 +16,7 @@ class ReceiverController {
       return response.status(400).json({ errors });
     }
 
-    const receiver = (
-      await db.insert(receivers).values(payload).returning()
-    )[0];
+    const receiver = await receiverService.create(payload);
 
     return response.status(201).json(receiver);
   }
@@ -28,10 +24,7 @@ class ReceiverController {
   async delete(request: Request, response: Response) {
     const { receivers: receiversToDelete } = request.body;
 
-    await db
-      .update(receivers)
-      .set({ deletedAt: new Date() })
-      .where(inArray(receivers.id, receiversToDelete));
+    await receiverService.delete(receiversToDelete);
 
     return response.status(200).json({ message: "Receivers deleted" });
   }
