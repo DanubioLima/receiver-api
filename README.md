@@ -29,13 +29,18 @@ Esse comando sobe uma instância local do Postgres junto com uma UI chamada `adm
 npm run test
 ```
 
-4. Para popular sua base local de dados rode esse comando que insere automaticamente 42 recebedores:
+4. Depois execute as migrations:
+```sh
+npm run migrate
+```
+
+5. Para popular sua base local de dados rode esse comando que insere automaticamente 42 recebedores:
 
 ```sh
 npm run seed
 ```
 
-5. Por fim, execute o servidor com esse comando e a API estará disponível na porta 3000:
+6. Por fim, execute o servidor com esse comando e a API estará disponível na porta 3000:
 
 ```sh
 npm start
