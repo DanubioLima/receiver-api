@@ -7,6 +7,7 @@ class ReceiverValidator {
         name: z.string().min(3),
         email: z.string().email().nullable(),
         document: z.string().max(14),
+        status: z.enum(["VALID", "DRAFT"]).default("DRAFT").optional(),
         pix_key_type: z.enum(
           ["CPF", "CNPJ", "EMAIL", "TELEFONE", "CHAVE_ALEATORIA"],
           { message: "pix_key_type is required" },
