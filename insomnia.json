@@ -1,0 +1,240 @@
+{
+    "_type": "export",
+    "__export_format": 4,
+    "__export_date": "2024-05-15T16:46:43.463Z",
+    "__export_source": "insomnia.desktop.app:v8.6.0",
+    "resources": [
+        {
+            "_id": "req_7dce847c01ef4e53aba36e9f55573c2b",
+            "parentId": "wrk_c3a209fc91084db08ab6ce475824369d",
+            "modified": 1715791497167,
+            "created": 1715790598121,
+            "url": "{{base_url}}",
+            "name": "Hello World",
+            "description": "",
+            "method": "GET",
+            "body": {},
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.6.0"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1715790598121,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "wrk_c3a209fc91084db08ab6ce475824369d",
+            "parentId": null,
+            "modified": 1715790592041,
+            "created": 1715790592041,
+            "name": "Receivers",
+            "description": "",
+            "scope": "collection",
+            "_type": "workspace"
+        },
+        {
+            "_id": "req_d3190c52879c4cbd8bf6a8e485bd4c74",
+            "parentId": "wrk_c3a209fc91084db08ab6ce475824369d",
+            "modified": 1715791484307,
+            "created": 1715790629961,
+            "url": "{{base_url}}/receivers",
+            "name": "Listar recebedores",
+            "description": "",
+            "method": "GET",
+            "body": {},
+            "parameters": [
+                {
+                    "id": "pair_8b79065eddc742c4b48f23daeee2b48c",
+                    "name": "name",
+                    "value": "dan",
+                    "description": "",
+                    "disabled": false
+                },
+                {
+                    "id": "pair_2220417b6e054b8da714fe4aa7fa11ab",
+                    "name": "status",
+                    "value": "DRAFT",
+                    "description": "",
+                    "disabled": false
+                },
+                {
+                    "id": "pair_cc25285466494863b236298ac7c7f706",
+                    "name": "pix_type",
+                    "value": "EMAIL",
+                    "description": "",
+                    "disabled": false
+                },
+                {
+                    "id": "pair_2d32c84014574b56a5892c7ba21c078b",
+                    "name": "pix_key",
+                    "value": "danubiovieiralima@gmail.com",
+                    "description": ""
+                }
+            ],
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.6.0"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1714555767092.5,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_beef27b41f4243f9a79c78324a4b3bae",
+            "parentId": "wrk_c3a209fc91084db08ab6ce475824369d",
+            "modified": 1715791504019,
+            "created": 1715790710899,
+            "url": "{{base_url}}/receivers",
+            "name": "Deletar  recebedores",
+            "description": "",
+            "method": "DELETE",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n\t\"receivers\": [\n\t\t\"0c7c6a7e-76bc-4964-82cf-14848273a686\",\n\t\t\"823a1d86-947e-40fb-84a6-960023c3ba3b\"\n\t]\n}"
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.6.0"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1713938351578.25,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_1df1c600e8bf42d9a4084b274e6d707a",
+            "parentId": "wrk_c3a209fc91084db08ab6ce475824369d",
+            "modified": 1715791530892,
+            "created": 1715791333592,
+            "url": "{{base_url}}/receivers/23bbf3a0-698d-4337-9947-1efd6a57018c",
+            "name": "Atualizar  recebedor",
+            "description": "",
+            "method": "PUT",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n\t\t\"name\": \"Danubio V Lima\"\n}"
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.6.0"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1713783997699.6875,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_c71da72c56d543d486c0d7c27b1cdee7",
+            "parentId": "wrk_c3a209fc91084db08ab6ce475824369d",
+            "modified": 1715791513402,
+            "created": 1715790942706,
+            "url": "{{base_url}}/receivers",
+            "name": "Criar  recebedor",
+            "description": "",
+            "method": "POST",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n\t\t\"name\": \"Danubio Lima\",\n\t\t\"email\": \"danubiovieiralima@gmail.com\",\n\t\t\"document\": \"41684841062\",\n\t\t\"pix_key_type\": \"EMAIL\",\n\t\t\"pix_key\": \"danubiovieiralima@gmail.com\"\n}"
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.6.0"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1713629643821.125,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "env_c4e125551c59435e851a4a40c8c54446c36abe83",
+            "parentId": "wrk_c3a209fc91084db08ab6ce475824369d",
+            "modified": 1715791449518,
+            "created": 1715790592045,
+            "name": "Base Environment",
+            "data": {
+                "base_url": "http://localhost:3000"
+            },
+            "dataPropertyOrder": {
+                "&": [
+                    "base_url"
+                ]
+            },
+            "color": null,
+            "isPrivate": false,
+            "metaSortKey": 1715790592045,
+            "_type": "environment"
+        },
+        {
+            "_id": "jar_c4e125551c59435e851a4a40c8c54446c36abe83",
+            "parentId": "wrk_c3a209fc91084db08ab6ce475824369d",
+            "modified": 1715790592046,
+            "created": 1715790592046,
+            "name": "Default Jar",
+            "cookies": [],
+            "_type": "cookie_jar"
+        }
+    ]
+}
