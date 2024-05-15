@@ -1,7 +1,10 @@
 import { test } from "@japa/runner";
 import receiverValidator from "../../src/receivers/receiver-validator";
+import { testSetup } from "../test-helpers";
 
-test.group("ReceiverValidator", () => {
+test.group("ReceiverValidator", (group) => {
+  group.each.setup(testSetup);
+
   test("should return success as false when missing `pix_key_type` field", async ({
     assert,
   }) => {

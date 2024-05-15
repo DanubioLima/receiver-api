@@ -5,6 +5,8 @@ const receiverController = new ReceiverController();
 
 const routes = express.Router();
 
+routes.get("/", (_, res) => res.send("Hello World!"));
+
 routes.post("/receivers", receiverController.create);
 routes.delete("/receivers", receiverController.delete);
 routes.get("/receivers", receiverController.list);
