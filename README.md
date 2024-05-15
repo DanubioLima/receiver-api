@@ -21,12 +21,24 @@ npm ci
 docker compose up -d
 ```
 
-Esse comando sobe uma instância local do Postgres junto com uma UI chamada `adminer` que fica disponível em `localhost:8080` para visualizar as tabelas do banco de forma mais agradável.
+Esse comando sobe uma instância local do Postgres junto com uma UI chamada `adminer` que fica disponível em `localhost:8080` para visualizar as tabelas do banco de forma mais agradável :)
 
 3. Para verificar que está tudo correto, execute a pilha de testes:
 
 ```sh
 npm run test
+```
+
+4. Para popular sua base local de dados rode esse comando que insere automaticamente 42 recebedores:
+
+```sh
+npm run seed
+```
+
+5. Por fim, execute o servidor com esse comando e a API estará disponível na porta 3000:
+
+```sh
+npm start
 ```
 
 ## Tech Stack 🖥️:
@@ -41,3 +53,14 @@ npm run test
 - [Drizzle ORM](https://orm.drizzle.team/)
 - [Japa Runner](https://japa.dev/docs/introduction)
 - [Zod](https://zod.dev/)
+
+## Decisões de implementação
+
+- Decidi usar Postgres por ser um banco relacional muito robusto e confiável, além de simples e fácil de usar.
+- Em vez de apagar diretamente os receivers do banco estou utilizando _soft delete_ marcando os deletados com o campo `deleted_at` preenchido e filtrando esses registros na listagem.
+- A arquitetura e o design de código são bem modestos e "direto ao ponto" por ser um projeto simples, porém organizei os arquivos e classes de modo a ser fácil de modificar e alterar.
+- TDD foi utilizado do início ao fim do projeto e todas as implementações contam com casos de testes que cubram os cenários previstos.
+- Decidi escrever todo o projeto do zero sem frameworks e usando libs simples como o drizzle orm e o express por dois motivos:
+  demonstrar mais claramente como escrevo código sem depender de tantas abstrações e praticar um pouco mais o uso dessas techs.
+
+Estou aberto a sugestões de melhoria e revisões de código :)
