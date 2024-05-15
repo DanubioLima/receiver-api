@@ -1,6 +1,6 @@
 import db from "../database/client";
 import { NewReceiver, Receiver, receivers } from "./receiver-schema";
-import { asc, ilike, count, and, eq, inArray } from "drizzle-orm";
+import { asc, ilike, count, and, eq, inArray, sql } from "drizzle-orm";
 
 type ListReceiverFilter = {
   name?: string;
@@ -29,7 +29,10 @@ class ReceiverService {
 
   private async countReceivers() {
     const { count: totalReceivers } = (
-      await db.select({ count: count() }).from(receivers)
+      await db
+        .select({ count: count() })
+        .from(receivers)
+        .where(sql`"deleted_at" is null`)
     )[0];
 
     return totalReceivers;
@@ -50,6 +53,7 @@ class ReceiverService {
           status ? eq(receivers.status, status) : void 0,
           pix_type ? eq(receivers.pix_key_type, pix_type) : void 0,
           pix_key ? eq(receivers.pix_key, pix_key) : void 0,
+          sql`"deleted_at" is null`,
         ),
       );
 

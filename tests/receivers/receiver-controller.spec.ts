@@ -243,6 +243,54 @@ test.group("ReceiverController - list", (group) => {
       },
     ]);
   });
+
+  test("should NOT return deleted receivers", async ({ assert }) => {
+    // ARRANGE
+    const [receiver_1, receiver_2] = await createReceivers([
+      {
+        name: "John Doe",
+        email: "johndoe@gmail.com",
+        document: "06795621928",
+        pix_key_type: "CPF",
+        deletedAt: null,
+        pix_key: "06795621928",
+      },
+      {
+        name: "Guilherme",
+        email: "guilherme@gmail.com",
+        document: "98907100055",
+        deletedAt: new Date(),
+        pix_key_type: "EMAIL",
+        pix_key: "guilherme@gmail.com",
+      },
+    ]);
+
+    // ACT
+    const response = await request(appUrl).get("/receivers");
+
+    // ASSERT
+    assert.equal(response.status, 200);
+    assert.deepInclude(response.body, {
+      totalReceivers: 1,
+      page: 1,
+      pageSize: 10,
+    });
+    assert.lengthOf(response.body.receivers, 1);
+    assert.includeDeepMembers(response.body.receivers, [
+      {
+        id: receiver_1.id,
+        name: "John Doe",
+        email: "johndoe@gmail.com",
+        document: "06795621928",
+        status: "DRAFT",
+        pix_key_type: "CPF",
+        pix_key: "06795621928",
+        deletedAt: null,
+        createdAt: receiver_1.createdAt.toISOString(),
+        updatedAt: receiver_1.updatedAt.toISOString(),
+      },
+    ]);
+  });
 });
 
 test.group("ReceiverController - delete", (group) => {
